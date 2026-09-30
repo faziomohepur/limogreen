@@ -47,46 +47,6 @@ if (statEls.length) {
 }
 
 // Booking form — AJAX submit to Netlify Forms
-const bookingForm = document.getElementById('booking-form');
-const formHint = document.getElementById('form-hint');
-
-if (bookingForm) {
-  bookingForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = bookingForm.querySelector('button[type="submit"]');
-    const originalLabel = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Đang gửi...';
-
-    try {
-      const formData = new FormData(bookingForm);
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
-      });
-
-      if (response.ok) {
-        bookingForm.reset();
-        if (formHint) {
-          formHint.textContent = 'Đã gửi yêu cầu thành công! Chúng tôi sẽ liên hệ lại ngay.';
-          formHint.style.color = '#0e9f6e';
-          formHint.style.fontWeight = '600';
-        }
-      } else {
-        throw new Error('Submit failed');
-      }
-    } catch (err) {
-      if (formHint) {
-        formHint.textContent = 'Có lỗi xảy ra, vui lòng gọi trực tiếp 0852 755 277 để đặt xe.';
-        formHint.style.color = '#c0392b';
-      }
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalLabel;
-    }
-  });
-}
 
 // Footer year
 const yearEl = document.getElementById('year');
